@@ -1,0 +1,59 @@
+These logs demonstrate the agent’s behavior across multiple runs.
+Early runs show incorrect tool usage and premature answers.
+After detecting repeated TOOL_NOT_USED mistakes, the agent enforces mandatory tool usage.
+Subsequent runs show reduced frequency of this mistake, indicating learning over time.
+
+---------LOGS----------      
+
+--- RUN 1 ---
+Question: What is the capital of Germany?
+Used Tool: False
+Tool Output: None
+Final Answer: Answered directly without using search.
+Evaluation: {'status': 'FAILURE', 'mistake': 'TOOL_NOT_USED'}
+
+--- RUN 2 ---
+Question: What is the capital of Germany?
+Used Tool: True
+Tool Output: Berlin
+Final Answer: Berlin
+Evaluation: {'status': 'SUCCESS', 'mistake': None}
+
+--- RUN 3 ---
+Question: What is the capital of Germany?
+Used Tool: True
+Tool Output: Berlin
+Final Answer: Ignored tool output.
+Evaluation: {'status': 'FAILURE', 'mistake': 'TOOL_OUTPUT_IGNORED'}
+
+--- RUN 4 ---
+Question: What is the capital of Germany?
+Used Tool: False
+Tool Output: None
+Final Answer: Answered directly without using search.
+Evaluation: {'status': 'FAILURE', 'mistake': 'TOOL_NOT_USED'}
+LEARNING UPDATE:
+- Detected repeated TOOL_NOT_USED mistakes
+- Enforcing mandatory search tool usage for factual questions
+
+--- RUN 5 ---
+Question: What is the capital of Germany?
+Used Tool: True
+Tool Output: Berlin
+Final Answer: Berlin
+Evaluation: {'status': 'SUCCESS', 'mistake': None}
+
+--- RUN 6 ---
+Question: What is the capital of Germany?
+Used Tool: True
+Tool Output: Berlin
+Final Answer: Ignored tool output.
+Evaluation: {'status': 'FAILURE', 'mistake': 'TOOL_OUTPUT_IGNORED'}
+
+Final Memory:
+{'run_id': 1, 'question': 'What is the capital of Germany?', 'status': 'FAILURE', 'mistake': 'TOOL_NOT_USED'}
+{'run_id': 2, 'question': 'What is the capital of Germany?', 'status': 'SUCCESS', 'mistake': None}
+{'run_id': 3, 'question': 'What is the capital of Germany?', 'status': 'FAILURE', 'mistake': 'TOOL_OUTPUT_IGNORED'}
+{'run_id': 4, 'question': 'What is the capital of Germany?', 'status': 'FAILURE', 'mistake': 'TOOL_NOT_USED'}
+{'run_id': 5, 'question': 'What is the capital of Germany?', 'status': 'SUCCESS', 'mistake': None}
+{'run_id': 6, 'question': 'What is the capital of Germany?', 'status': 'FAILURE', 'mistake': 'TOOL_OUTPUT_IGNORED'}
